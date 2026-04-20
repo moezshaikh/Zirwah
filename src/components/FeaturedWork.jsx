@@ -1,10 +1,10 @@
 import React, { useState, useEffect, useRef } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
-import noorImg from '../assets/noor.png';
-import sassyImg from '../assets/jew.png';
-import irahImg from '../assets/irah.png';
-import hennaImg from '../assets/mehndi.png';
-import cuddleImg from '../assets/image.png';
+import noorImg from '../assets/noor.jpg';
+import sassyImg from '../assets/image.jpg';
+import irahImg from '../assets/irah.jpg';
+import hennaImg from '../assets/mehndi.jpg';
+import cuddleImg from '../assets/image (1).jpg';
 /* ─── Data ─────────────────────────────────────────── */
 const clientProjects = [
   {
