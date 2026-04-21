@@ -228,12 +228,37 @@
   align-items: center;
 }
 
-.logo a {
-  font-weight: 900;
-  letter-spacing: 0.2em;
-  color: white;
+.logo-cursive {
+  /* Use the high-end cursive you already imported */
+  font-family: 'Great Vibes', cursive;
+  
+  /* Size & Weight */
+  font-size: 2rem; 
+  font-weight: 400;
+  
+  /* The "Noor" Gold aesthetic */
+  color: #c4a464; 
+  
+  /* Subtle glow to make it look like jewelry/neon signature */
+  text-shadow: 0 0 15px rgba(196, 164, 100, 0.3);
+  
   text-decoration: none;
-  font-size: 1.2rem;
+  transition: all 0.4s ease;
+  display: inline-block;
+  line-height: 1;
+}
+
+.logo-cursive:hover {
+  color: #ffffff;
+  transform: scale(1.05) rotate(-5deg); /* Subtle "hand-written" movement */
+  text-shadow: 0 0 20px rgba(255, 255, 255, 0.4);
+}
+
+/* Optional: Add a small decorative dot or underscore */
+.logo-cursive::after {
+  content: '.';
+  color: #ffffff;
+  font-family: 'DM Serif Display', serif;
 }
 
 .zh-nav-links {

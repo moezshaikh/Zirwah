@@ -25,8 +25,8 @@ const Navbar = () => {
     >
       <div className="container nav-container">
         <div className="logo">
-          <a href="/" onClick={closeMenu}>BRAND</a>
-        </div>
+  <a href="/" onClick={closeMenu} className="logo-cursive">Z</a>
+</div>
 
         {/* Hamburger Icon */}
         <div 
