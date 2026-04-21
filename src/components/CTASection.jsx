@@ -40,6 +40,7 @@ const itemRight = {
 const CTASection = () => {
   return (
     <section id="contact" className="cta-section">
+      
 
       {/* LEFT */}
       <motion.div
@@ -62,6 +63,7 @@ const CTASection = () => {
           </motion.div>
         ))}
       </motion.div>
+      
 
       {/* CENTER */}
       <motion.div

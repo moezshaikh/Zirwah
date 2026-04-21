@@ -197,17 +197,7 @@ export default function CenteredStatement() {
       </div>
 
       {/* ── Bottom ornament ── */}
-      <motion.div
-        className="cs-bottom-ornament"
-        variants={fadeUp(0.6)}
-        initial="hidden"
-        animate={animate}
-        aria-hidden="true"
-      >
-        <span className="cs-ornament-line cs-ornament-line--faint" />
-        <span className="cs-bottom-label">The shift is closer than you think.</span>
-        <span className="cs-ornament-line cs-ornament-line--faint" />
-      </motion.div>
+      
     </section>
   );
 }

@@ -199,45 +199,63 @@
   margin-bottom: 1.5rem;
 }
 
-/* Navbar */
+/* Base Styles & Variables */
+:root {
+  --accent: #d4b474;
+  --bg-dark: rgba(15, 15, 15, 0.95);
+  --glass-border: rgba(255, 255, 255, 0.08);
+}
+
 .zh-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 26px 60px; /* Wide padding for expensive white space */
-  position:fixed;
+  position: fixed;
   top: 0;
   left: 0;
   width: 100%;
-  z-index: 1000;
-  backdrop-filter: blur(20px); /* Glassmorphism subtly connects nav to hero background */
-  border-bottom: 1px solid rgba(255,255,255,0.06);
+  padding: 20px 50px;
+   z-index: 2000;
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid var(--glass-border);
+  display: flex;
+  justify-content: center;
+  box-sizing: border-box;
 }
 
 .nav-container {
+  width: 100%;
+  max-width: 1400px;
   display: flex;
   justify-content: space-between;
   align-items: center;
 }
 
-
-
-.zh-nav-links a {
-  font-size: 0.9rem;
-  letter-spacing: 0.15em;
-  font-weight: 800;
-  color:  #d4b474;
- opacity: 1.8;
-  position: relative;
-  transition: opacity 0.3s ease;
-  text-transform: uppercase;
+.logo a {
+  font-weight: 900;
+  letter-spacing: 0.2em;
+  color: white;
+  text-decoration: none;
+  font-size: 1.2rem;
 }
 
 .zh-nav-links {
   display: flex;
-  gap: var(--spacing-lg);
+  list-style: none;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
 }
 
+.zh-nav-links a {
+  font-size: 0.8rem;
+  letter-spacing: 0.15em;
+  font-weight: 700;
+  color: var(--accent);
+  text-decoration: none;
+  text-transform: uppercase;
+  position: relative;
+  transition: opacity 0.3s ease;
+}
+
+/* Hover Underline Animation */
 .nav-link::after {
   content: '';
   position: absolute;
@@ -246,103 +264,136 @@
   width: 0%;
   height: 1px;
   background-color: var(--accent);
-  transition: width 0.3s ease;
-}
-
-.zh-nav-links:hover {
-  opacity: 1;
+  
+  transition: width 0.4s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
 .nav-link:hover::after {
   width: 100%;
 }
-/* ============================================================
-   HAMBURGER (hidden on desktop)
-   ============================================================ */
 
+/* Hamburger Icon */
 .hamburger {
   display: none;
   flex-direction: column;
-  gap: 5px;
+  gap: 6px;
+  
   cursor: pointer;
   z-index: 1001;
+  padding: 10px;
 }
 
 .hamburger span {
-  width: 22px;
+  width: 24px;
   height: 2px;
   background: white;
-  transition: 0.3s;
+  transition: all 0.4s cubic-bezier(0.2, 1, 0.3, 1);
 }
 
-/* Animate to X */
-.hamburger.active span:nth-child(1) {
-  transform: translateY(7px) rotate(45deg);
-}
-.hamburger.active span:nth-child(2) {
-  opacity: 0;
-}
-.hamburger.active span:nth-child(3) {
-  transform: translateY(-7px) rotate(-45deg);
-}
-
-/* ============================================================
-   MOBILE NAV (≤ 768px)
-   ============================================================ */
-
+/* Responsive Mobile Layout */
 @media (max-width: 768px) {
 
-  .nav-container {
-    position: relative;
-  }
 
   .hamburger {
-    position: absolute;
-    right: 0;
-    top: 50%;
-    transform: translateY(-50%);
+    display: flex;
   }
 
-  /* Hide default links */
-  .zh-nav-links {
-    position: absolute;
-    top: 70px;
-    left: 50%;
-    transform: translateX(-50%) scale(0.95);
-    width: 90%;
-    max-width: 400px;
+  /* Hamburger to X Animation */
+  .hamburger.active span:nth-child(1) {
+    transform: translateY(8px) rotate(45deg);
+    
+  }
+  .hamburger.active span:nth-child(2) {
+    opacity: 0;
+    transform: translateX(10px);
+  }
+  .hamburger.active span:nth-child(3) {
+    transform: translateY(-8px) rotate(-45deg);
+  }
+  .zh-nav {
+    padding: 16px 24px;
+    margin-bottom:-18px;
+    /* Ensure the parent is always on top */
+    z-index: 9999; 
+  }
 
+  /* Reset the container for mobile */
+  .nav-container {
+    width: 100%;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height:4vh;
+    position: static; /* Allows absolute children to reference the viewport */
+  }
+
+  .zh-nav-links {
+    /* 1. Reset Display: Ensure it's flex, not 'none' */
+    display: flex !important; 
     flex-direction: column;
     align-items: center;
-    gap: 20px;
+    justify-content: center;
+    gap: 30px;
 
-    padding: 20px;
+    /* 2. Positioning: Fixed to viewport, not the parent padding */
+    position: fixed;
+    top: 80px; /* Adjust based on your header height */
+    left: 50%;
+    width: 90%;
+    max-width: 400px;
+    padding: 55px 20px;
 
+    /* 3. Appearance: Premium Glassmorphism */
+    background: rgba(10, 10, 10, 0.98); 
+    backdrop-filter: blur(20px);
+    -webkit-backdrop-filter: blur(20px);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    border-radius: 24px;
+    box-shadow: 0 20px 50px rgba(0, 0, 0, 0.5);
+
+    /* 4. Visibility State: Corrected Transitions */
     opacity: 0;
+    visibility: hidden;
     pointer-events: none;
-
-    border-radius: 20px;
-    backdrop-filter: blur(12px);
-    background: rgba(20, 20, 20, 0.7);
-    border: 1px solid rgba(255,255,255,0.1);
-
-    transition: all 0.3s ease;
+    /* Combined transform: starts slightly lower and scaled down */
+    transform: translate(-50%, -20px) scale(0.95);
+    transition: all 0.5s cubic-bezier(0.2, 1, 0.3, 1);
+    
+    /* Ensure links sit above the overlay */
+    z-index: 10001; 
   }
 
-  /* Open state */
+  /* 5. Open State: The "Trigger" */
   .zh-nav-links.open {
     opacity: 1;
+    visibility: visible;
     pointer-events: auto;
-    transform: translateX(-50%) scale(1);
+    transform: translate(-50%, 0) scale(1);
   }
 
-  .nav-link {
-    font-size: 16px;
+  /* Ensure individual links are visible */
+  .zh-nav-links li {
+    width: 100%;
+    text-align: center;
   }
-}
-@media (max-width: 768px) {
-  .nav-links {
-    display: none; /* simple mobile, hide nav for now or implement hamburger */
+
+  .zh-nav-links a {
+    font-size: 1.2rem; /* Make links touch-friendly */
+    display: block;
+    width: 100%;
+    color: var(--accent);
+  }
+
+  /* Overlay: Fixed to entire screen */
+  .nav-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0, 0, 0, 0.7);
+    backdrop-filter: blur(4px);
+    z-index: 10000; /* Between nav and menu */
   }
 }
 
@@ -721,6 +772,7 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   justify-content: center;
   gap:             19px;
   margin-top:      8px;
+  margin-bottom:18px;
   
 }
 
@@ -2096,32 +2148,40 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
     transform: none;
   }
 }
-/*
-  CTASection.css
-  Fonts — add once in your index.html:
-  <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@300;400;500&display=swap" rel="stylesheet">
-*/
+/* ============================================================
+   CTASection.css — Production-Ready, Fully Responsive
+   Fonts — add once in your index.html:
+   <link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=DM+Sans:wght@400;900&display=swap" rel="stylesheet">
+   ============================================================ */
+
+/* ── Global Box Model Fix (critical) ────── */
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
 
 /* ── Tokens ─────────────────────────────── */
 :root {
-  --bg:          #0e0e0f;
-  --border:      rgba(255, 255, 255, 0.08);
-  --text:        #f0ece4;
-  --muted:       rgba(240, 236, 228, 0.45);
-  --accent:      #c9b58a;
-  --accent-dim:  rgba(201, 181, 138, 0.12);
-  --serif:       'DM Serif Display', Georgia, serif;
-  --sans:        'DM Sans', system-ui, sans-serif;
+  --bg:         #0e0e0f;
+  --border:     rgba(255, 255, 255, 0.08);
+  --text:       #f0ece4;
+  --muted:      rgba(240, 236, 228, 0.45);
+  --accent:     #c9b58a;
+  --accent-dim: rgba(201, 181, 138, 0.12);
+  --serif:      'DM Serif Display', Georgia, serif;
+  --sans:       'DM Sans', system-ui, sans-serif;
 }
 
 /* ── Section ─────────────────────────────── */
 .cta-section {
   display: grid;
   grid-template-columns: 1fr auto 1fr;
-  grid-template-rows: auto;
   grid-template-areas: "left center right";
+  justify-items: center;
   align-items: center;
   gap: 5rem;
+  width: 100%;          /* Anchors grid to viewport — prevents overflow drift */
   min-height: 100vh;
   padding: 8rem 5rem;
   background-color: var(--bg);
@@ -2130,7 +2190,7 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
     linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
   background-size: 48px 48px;
   font-family: var(--sans);
-  /* mobile list hidden on desktop */
+  overflow-x: hidden;   /* Prevents any child from causing horizontal scroll */
 }
 
 /* ── Sides ───────────────────────────────── */
@@ -2151,13 +2211,12 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   padding: 25px 20px;
   border-radius: 25px;
   border: 1px solid transparent;
-    color: rgba(240, 236, 228, 0.7);
+  color: rgba(240, 236, 228, 0.7);
   line-height: 1.7;
   letter-spacing: 0.01em;
-background: rgba(255, 255, 255, 0.04); /* subtle lift */
+  background: rgba(255, 255, 255, 0.04);
   backdrop-filter: blur(4px);
-  transition: border-colo
-  r 0.2s, background 0.2s;
+  transition: border-color 0.2s, background 0.2s; /* Fixed: removed line-break typo */
   cursor: default;
 }
 
@@ -2183,7 +2242,8 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   color: var(--text);
   letter-spacing: 0.01em;
   line-height: 1.3;
-  white-space: nowrap;
+ white-space: normal;
+word-break: break-word;
 }
 
 .benefit__arrow {
@@ -2209,11 +2269,12 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   flex-direction: column;
   align-items: center;
   text-align: center;
-  width: 440px;
+  width: 100%;
+  max-width: 440px;
   padding: 4.75rem 4.5rem;
   border-radius: 30px;
   border: 1px solid var(--border);
-  background: rgba(255, 255, 255, 0.05); /* slightly stronger */
+  background: rgba(255, 255, 255, 0.05);
   backdrop-filter: blur(10px);
   -webkit-backdrop-filter: blur(10px);
   box-shadow:
@@ -2221,14 +2282,13 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
     0 24px 64px rgba(0, 0, 0, 0.45);
 }
 
-
 .cta-headline {
   font-family: var(--serif);
-  font-size: clamp(3.2rem, 2.5vw, 2.1rem);
+  font-size: clamp(1.75rem, 4vw, 2.1rem); /* Fixed: clamp was inverted (min > max) */
   font-weight: 400;
   color: var(--text);
   line-height: 1.2;
-  margin: 1px 1px 1px;
+  margin: 0 0 0.25rem;
   letter-spacing: -0.01em;
 }
 
@@ -2236,7 +2296,6 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   font-style: italic;
   color: var(--accent);
 }
-
 
 /* ── CTA Button ──────────────────────────── */
 .cta-btn {
@@ -2252,11 +2311,12 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   text-decoration: none;
   padding: 12px 26px;
   border-radius: 50px;
-  margin-top:32px;
+  margin-top: 32px;
   border: none;
   cursor: pointer;
   transition: background 0.2s, transform 0.15s, box-shadow 0.2s;
 }
+
 .cta-btn:hover {
   background: #d9c89e;
   transform: translateY(-2px);
@@ -2278,7 +2338,7 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   font-size: 17px;
   color: rgba(255, 255, 255, 0.28);
   letter-spacing: 0.05em;
-  margin-top: 2.5rem ;
+  margin-top: 2.5rem;
   font-family: var(--sans);
 }
 
@@ -2287,9 +2347,9 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   display: none;
 }
 
-/* ── Responsive ──────────────────────────── */
-
-/* Tablet: compress side gaps before collapsing */
+/* ============================================================
+   TABLET (~960px) — compress before collapsing
+   ============================================================ */
 @media (max-width: 960px) {
   .cta-section {
     gap: 1.5rem;
@@ -2306,33 +2366,36 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   }
 }
 
-/*
-  Mobile: single column
-  Order: mobile-benefits (1) → center CTA (2)
-  Desktop sides hidden, mobile list shown
-*/
+/* ============================================================
+   MOBILE (~768px) — single column, show mobile benefits
+   ============================================================ */
 @media (max-width: 768px) {
   .cta-section {
-    grid-template-columns: 1fr;
+    /* FIX: Force grid track to never exceed viewport width */
+    grid-template-columns: minmax(0, 1fr);
     grid-template-areas:
       "mobile"
       "center";
+    justify-items: center;
     gap: 1.75rem;
     padding: 4rem 1.25rem 5rem;
     min-height: auto;
   }
 
-  /* hide desktop sides */
+  /* Hide desktop sides */
   .cta-side {
     display: none;
   }
 
-  /* show mobile list */
+  /* Show mobile benefit grid */
   .cta-mobile-benefits {
     grid-area: mobile;
     display: grid;
-    grid-template-columns: 1fr 1fr;
+    /* FIX: Prevent inner grid from blowing out */
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
     gap: 10px;
+    width: 100%;          
+    max-width: 480px;      
   }
 
   .mobile-benefit {
@@ -2344,6 +2407,8 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
     border-radius: 10px;
     background: rgba(255, 255, 255, 0.025);
     transition: background 0.2s;
+    /* FIX: Allow flex container to shrink below its content size */
+    min-width: 0; 
   }
 
   .mobile-benefit:hover {
@@ -2361,13 +2426,16 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
     font-weight: 400;
     color: var(--text);
     line-height: 1.3;
+    /* FIX: Ensure text wraps and doesn't force container width */
+    word-break: break-word; 
+    min-width: 0;
   }
 
+  /* Center card — fluid, capped, centered via grid */
   .cta-center {
     grid-area: center;
     width: 100%;
     max-width: 480px;
-    margin: 0 auto;
     padding: 2rem 1.5rem;
   }
 
@@ -2376,155 +2444,44 @@ background: rgba(255, 255, 255, 0.04); /* subtle lift */
   }
 }
 
-
-
+/* ============================================================
+   MOBILE SMALL (≤480px) — tighter padding
+   ============================================================ */
 @media (max-width: 480px) {
-
   .cta-section {
-    padding: 3rem 1rem 4rem;
-    gap: 1.5rem;
+    /* FIX: Force grid track to 0 min-width and removed the manual left offset */
+    grid-template: "mobile" "center" / minmax(0, 1fr);
+    place-items: center;
+    gap: 1.25rem;
+    padding: 2rem 1rem;
+    min-height: auto;
   }
 
-  /* Center card */
   .cta-center {
-    padding: 1.75rem 1.2rem;
+    width: 100%;
+    max-width: 280px;
+    padding: clamp(1.5rem, 4vw, 4.75rem) clamp(1rem, 4vw, 4.5rem);
   }
 
-  /* Headline */
   .cta-headline {
     font-size: 1.8rem;
     line-height: 1.3;
   }
 
-  /* Button usability */
   .cta-btn {
     font-size: 16px;
     padding: 12px 20px;
   }
 
-  /* Trust text */
   .cta-trust {
     font-size: 14px;
     margin-top: 1.8rem;
   }
 
-  /* Fix benefit overflow */
   .mobile-benefit__label {
     white-space: normal;
   }
 }
-/* ============================================================
-   MOBILE MEDIUM (~375px)
-   Proper centering + balanced spacing
-   ============================================================ */
-
-@media (max-width: 375px) {
-
-  /* Ensure grid centers content */
-  .cta-section {
-    justify-items: center;
-    padding: 2.5rem 1rem 3.5rem;
-    gap: 1.5rem;
-  }
-
-  /* Center card */
-  .cta-center {
-    width: 100%;
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1.6rem 1.2rem;
-  }
-
-  /* Center benefits */
-  .cta-mobile-benefits {
-    width: 100%;
-    max-width: 340px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 8px;
-  }
-
-  /* Prevent edge sticking */
-  .mobile-benefit {
-    width: 100%;
-  }
-
-  /* Typography */
-  .cta-headline {
-    font-size: 1.5rem;
-    line-height: 1.3;
-  }
-
-  .cta-btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 15px;
-  }
-
-  .cta-trust {
-    font-size: 13px;
-  }
-}
-
-
-/* ============================================================
-   MOBILE SMALL (~320px)
-   Tight layout, strict centering
-   ============================================================ */
-
-@media (max-width: 320px) {
-
-  .cta-section {
-    justify-items: center;
-    padding: 2.2rem 0.8rem 3rem;
-    gap: 1.25rem;
-  }
-
-  .cta-center {
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    padding: 1.4rem 1rem;
-    border-radius: 18px;
-  }
-
-  .cta-mobile-benefits {
-    width: 100%;
-    max-width: 300px;
-    margin-left: auto;
-    margin-right: auto;
-    gap: 6px;
-  }
-
-  .mobile-benefit {
-    padding: 9px 10px;
-  }
-
-  .mobile-benefit__label {
-    font-size: 10.5px;
-    line-height: 1.25;
-    white-space: normal;
-  }
-
-  .cta-headline {
-    font-size: 1.35rem;
-    line-height: 1.25;
-  }
-
-  .cta-btn {
-    width: 100%;
-    justify-content: center;
-    font-size: 14px;
-    padding: 10px 16px;
-  }
-
-  .cta-trust {
-    font-size: 12.5px;
-  }
-}
-
 
 
 /* ============================================================
@@ -3277,10 +3234,36 @@ font-family: var(--t-font-serif);
 
 /* Bottom */
 .footer-bottom {
-  font-size: 0.85rem;
-  opacity: 0.7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1.5rem 2rem;
+  border-top: 1px solid rgba(255,255,255,0.08);
 }
 
+/* Social icons */
+.footer-socials {
+  display: flex;
+  gap: 14px;
+}
+
+.footer-socials a {
+  width: 36px;
+  height: 36px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: rgba(255,255,255,0.05);
+  color: #fff;
+  font-size: 14px;
+  transition: all 0.25s ease;
+}
+
+.footer-socials a:hover {
+  background: rgba(255,255,255,0.15);
+  transform: translateY(-2px);
+}
 
 /* ============================= */
 /* Responsive Enhancements       */
