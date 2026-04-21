@@ -4,7 +4,7 @@ import noorImg from '../assets/noor.jpg';
 import sassyImg from '../assets/image.jpg';
 import irahImg from '../assets/irah.jpg';
 import hennaImg from '../assets/mehndi.jpg';
-import cuddleImg from '../assets/image (1).jpg';
+import cuddleImg from '../assets/cuddle.jpg';
 /* ─── Data ─────────────────────────────────────────── */
 const clientProjects = [
   {
